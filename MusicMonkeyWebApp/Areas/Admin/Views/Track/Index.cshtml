@@ -1,0 +1,471 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Layout/_AdminLayout.cshtml";
+}
+<link rel="stylesheet" href="~/Content/Assets/css/font-awesome.min.css" />
+<script src="~/Content/Assets/js/SiteHelper.js"></script>
+
+<script>
+    'use strict';
+
+    SiteHelper.HtmlDom.Modal.registerRules();
+
+    const rowEditor = {
+        tr: null,
+
+        init: (messageElement) => {
+            rowEditor.message = new SiteHelper.Messenger.infoMessenger(messageElement);
+        },
+        history: {
+            elements: [],
+            save: (t) => {
+                t.history.elements.length = 0;
+                t.tr.querySelectorAll('[data-edit]').forEach(o => {
+                    t.history.elements.push(o.cloneNode(true));
+                });
+            }
+        },
+        message: new SiteHelper.Messenger.infoMessenger(null),
+        details: (rowId) => {
+            const t = rowEditor;
+
+            if (t.tr != null) return;
+            t.tr = document.querySelector(`#${rowId}`);
+
+            const trackId = t.tr.querySelector('[data-edit="track-id"]').innerHTML;
+            const title = t.tr.querySelector('[data-edit="track-title"]').value;
+
+            $.ajax({
+                type: 'GET', url: `/api/TrackApi?id=${trackId}`,
+                success: (res) => {
+                    let template = `
+                        <div>
+                            <div class='track-details'>
+                                <div><img src='${res.ArtistPhotoUrl}' onerror='this.onerror=null; this.src="/Content/Assets/img/discography/no-photo.png"'></img></div>
+                                <hr class='help_Modal-hr' />
+                                <div><div>Track</div><div>${res.Title}</div></div>
+                                <div><div>Album</div><div>${res.AlbumTitle}</div></div>
+                                <div><div>Artist</div><div>${res.ArtistName}</div></div>
+                                <div><div>Popularity</div><div><i class="fa fa-star-o" aria-hidden="true"></i> ${res.Popularity}</div></div>
+                                <div><div>Duration (mm:ss)</div><div>${SiteHelper.Converter.secondsToTimeSpanStr(res.DurationSecs)}</div></div>
+                                <div><div>Genres</div><div>${res.TrackGenres.join(', ')}</div></div>
+                            </div>
+                        </div>
+                    `;
+                    SiteHelper.HtmlDom.Modal.showModalAsync('Track Details', template, '#151f30', null, 'Close').then(data => t.tr = null);
+                },
+                error: () => {
+                    t.message.set.warning(`Something went wrong while trying to get track <q>${title}</q>`);
+                    t.tr = null;
+                }
+            });
+        },
+        delete: (rowId) => {
+            const t = rowEditor;
+
+            if (t.tr != null) return;
+            t.tr = document.querySelector(`#${rowId}`);
+
+            const title = t.tr.querySelector('[data-edit="track-title"]').value;
+            const trackId = t.tr.querySelector('[data-edit="track-id"]').innerHTML;
+
+            SiteHelper.HtmlDom.Modal.showModalAsync('Delete Confirmation', `Are you sure you want to delete track <br><q>${title}</q> ?`)
+                .then((data) => {
+                    if (data == 'ok') {
+                        $.ajax({
+                            type: 'DELETE', url: `/api/TrackApi?id=${trackId}`,
+                            success: (res) => {
+                                t.message.set.success(`Track <q>${title}</q> successfully deleted.`);
+                                document.querySelector('#' + rowId).outerHTML = '';
+                            },
+                            error: () => t.message.set.warning(`Something went wrong while trying to delte track <q>${title}</q>`)
+                        });
+                    }
+                    else t.message.set.info('Action canceled.', 600);
+
+                    t.tr = null;
+                });
+        },
+        open: (rowId) => {
+            const t = rowEditor;
+
+            if (t.tr != null) return;
+            t.tr = document.querySelector(`#${rowId}`);
+
+            $.ajax({
+                type: 'GET', url: '/api/ArtistApi', dataType: 'json', contentType: 'application/json',
+                success: (data) => {
+                    t.tr.querySelectorAll('[data-crud-btn]').forEach(o => {
+                        o.style.display = o.getAttribute('data-crud-btn') == 'action' ? 'none' : '';
+                    });
+
+                    t.tr.querySelectorAll('div').forEach(div => div.style.backgroundColor = '#1f2e48');
+
+                    t.tr.querySelectorAll('[data-edit]').forEach(o => o.removeAttribute('disabled'));
+                    t.history.save(t);
+
+                    t.edit(data);
+                },
+                error: () => {
+                    t.message.set.danger('An internal server error occured while trying to get Artist data...');
+                    t.tr = null;
+                }
+            });
+        },
+        edit: (data) => {
+            const t = rowEditor;
+
+            const albumSel = t.tr.querySelector('[data-edit="track-albums"]');
+            const artistSel = t.tr.querySelector('[data-edit="track-artists"]');
+
+            const currentArtistId = Number(artistSel.value);
+            const currentAlbumId = Number(albumSel.value);
+
+            artistSel.innerHTML = '';
+            albumSel.innerHTML = '';
+
+            const artists = data.sort((a, b) => a.Name < b.Name ? -1 : a.Name > b.Name ? 1 : 0);
+
+            artists.forEach(o => {
+                let opt = SiteHelper.HtmlDom.createOption(null, o.Id, o.Name);
+                artistSel.appendChild(opt);
+                if (o.Id == currentArtistId) {
+                    opt.setAttribute('selected', true);
+
+                    o.Albums.forEach(a => {
+                        opt = SiteHelper.HtmlDom.createOption(albumSel, a.Id, a.Title);
+                        if (a.Id == currentAlbumId) opt.setAttribute('selected', true);
+                    });
+                }
+            });
+
+            t.history.save(t);
+
+            artistSel.onchange = (e) => {
+                const artistId = e.target.options[e.target.selectedIndex].value;
+                albumSel.innerHTML = '';
+                const artist = data.find(o => o.Id == artistId);
+                artist.Albums.forEach(o => SiteHelper.HtmlDom.createOption(albumSel, o.Id, o.Title));
+
+                t.history.save(t);
+            };
+        },
+        cancel: () => {
+            const t = rowEditor;
+
+            t.tr.querySelectorAll('[data-edit]').forEach(o => {
+                o.setAttribute('disabled', true);
+
+                t.history.elements.forEach(c => {
+                    if (o.getAttribute('data-edit') == c.getAttribute('data-edit')) {
+                        switch (o.type) {
+                            case 'select-one':
+                                for (let i = o.options.length - 1; i > -1; i--) o.remove(i);
+                                for (let i = 0; i < c.options.length; i++) {
+                                    let opt = SiteHelper.HtmlDom.createOption(o, c.options[i].value, c.options[i].text);
+                                    if (c.getAttribute('selected')) opt.setAttribute('selected', true);
+                                }
+                                break;
+                            default: o.value = c.value; break;
+                        }
+                        o.value = c.value;
+                    }
+                });
+            });
+
+            t.tr.querySelectorAll('[data-crud-btn]').forEach(o => {
+                o.style.display = o.getAttribute('data-crud-btn') == 'edit' ? 'none' : '';
+            });
+
+            t.tr.querySelectorAll('div').forEach(div => div.style.backgroundColor = '#151f30');
+
+            t.message.set.info('Action canceled.', 600);
+            t.tr = null;
+        },
+        save: () => {
+            const t = rowEditor;
+            if (t.tr == null) return;
+
+            let track = {
+                Id: Number(t.tr.querySelector('[data-edit="track-id"]').innerText),
+                Title: t.tr.querySelector('[data-edit="track-title"]').value,
+                DurationSecs: SiteHelper.Converter.timeSpanToSeconds(t.tr.querySelector('[data-edit="track-timespan-mins"]').value, t.tr.querySelector('[data-edit="track-timespan-secs"]').value),
+                Popularity: Number(t.tr.querySelector('[data-edit="track-popularity"]').value),
+                AlbumId: Number(t.tr.querySelector('[data-edit="track-albums"]').value),
+                ArtistId: Number(t.tr.querySelector('[data-edit="track-artists"]').value),
+                AudioUrl: null
+            };
+
+            $.ajax({
+                type: 'PUT', url: '/api/TrackApi', contentType: 'application/json',
+                data: JSON.stringify(track),
+                success: () => {
+                    t.tr.querySelectorAll('[data-edit]').forEach(o => o.setAttribute('disabled', true));
+                    t.tr.querySelectorAll('[data-crud-btn]').forEach(o => {
+                        o.style.display = o.getAttribute('data-crud-btn') == 'edit' ? 'none' : '';
+                    });
+
+                    t.tr.querySelectorAll('div').forEach(div => div.style.backgroundColor = '#151f30');
+
+                    t.message.set.info('Track successfully saved.');
+                    t.tr = null;
+                },
+                error: () => {
+                    t.message.set.danger('An internal server error occured while trying to save Track...');
+                    t.tr = null;
+                }
+            });
+        }
+    };
+
+    const sorting = {
+        categories: { 'Id': 'Id', 'Title': 'Title', 'Popularity': 'Popularity', 'DurationSecs': 'Duration' },
+        filter: '',
+
+        init: () => {
+            sorting.filter = Object.keys(sorting.categories)[0];
+
+            let ul = document.getElementById('sort-cont');
+            let label = document.getElementById('sort-label');
+
+            label.innerHTML = sorting.categories[sorting.filter];
+
+            for (const [k, v] of Object.entries(sorting.categories)) {
+                const li = SiteHelper.HtmlDom.createElement('li', ul, v);
+                li.addEventListener('click', (e) => {
+                    sorting.filter = Object.entries(sorting.categories).filter(([k, v]) => v == e.target.innerHTML)[0][0];
+                    label.innerHTML = sorting.categories[sorting.filter];
+                    pager.dataModel.sortProp = sorting.filter;
+                    data.get();
+                })
+            }
+        }
+    };
+
+    const filtering = {
+        input: null,
+        init: () => {
+            filtering.input = document.getElementById('filter-input');
+            filtering.input.addEventListener('input', () => { filtering.filter(); });
+        },
+        filter: () => {
+
+            pager.dataModel.filter = filtering.input.value;
+            data.get();
+        }
+    };
+
+    let pager = null;
+
+    const data = {
+        backup: null,
+        get: () => {
+            $.ajax({
+                type: 'POST',
+                url: '/api/TrackApi',
+                data: JSON.stringify(pager.dataModel),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: (res) => {
+                    data.backup = res;
+                    data.build(res);
+                },
+                error: () => { }
+            });
+        },
+        build: (data) => {
+            $(`#load-tracks`).html(data.tracks.map((track, i) =>
+                `<tr id ='tr_${i}'>
+                    <td><div class="main__table-text" data-edit="track-id">${track.Id}</div></td>
+                    <td><div class="main__table-text"><input type="text" value="${track.Title}" data-edit="track-title" disabled/></div></td>
+                    <td>
+                        <div class="main__table-text timespan">
+                            <div><input type="number" min="0" max="60" onchange='this.value=("0"+this.value).slice(-2)' step="1" data-edit="track-timespan-mins" value="${SiteHelper.Converter.secondsToTimeSpanStr(track.DurationSecs).split(":")[0]}" disabled/></div>
+                            <div>:</div>
+                            <div><input type="number" min="0" max="60" onchange='this.value=("0"+this.value).slice(-2)' step="1" data-edit="track-timespan-secs" value="${SiteHelper.Converter.secondsToTimeSpanStr(track.DurationSecs).split(":")[1]}" disabled/></div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="main__table-text">
+                            <select name="track-albums" data-edit="track-albums" disabled>
+                                <option value="${track.AlbumId}">${track.AlbumTitle}</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="main__table-text">
+                            <select name="track-artists" data-edit="track-artists" disabled>
+                                <option value="${track.ArtistId}">${track.ArtistName}</option>
+                            </select>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="main__table-text" data-toggle="tooltip" data-placement="top" title="${track.TrackGenres.length ? track.TrackGenres.join(', ') : 'N/K'}">&nbsp;
+                        ${track.TrackGenres.length ? track.TrackGenres.length == 1 ? track.TrackGenres[0] : track.TrackGenres[0] + ',&nbsp;...' : 'N/K'}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="main__table-text main__table-text">
+                            <i class="fa fa-star-o" aria-hidden="true"></i><input type="number" min="1" max="5" data-edit="track-popularity" value="${track.Popularity}" disabled/>
+                        </div></td>
+                    <td>
+                        <div class="crud-btn-container" style="border-radius: 0 16px 16px 0;">
+                            <button class="crud-btn crud-btn--view" data-crud-btn="action" onclick='rowEditor.details("tr_${i}")'><i class="fa fa-eye" aria-hidden="true"></i></button>
+                            <button class="crud-btn crud-btn--edit" data-crud-btn="action" onclick='rowEditor.open("tr_${i}")'><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                            <button class="crud-btn crud-btn--cancel" data-crud-btn="edit" onclick='rowEditor.cancel()' style="display:none"><i class="fa fa-times" aria-hidden="true"></i></button>
+                            <button class="crud-btn crud-btn--save" data-crud-btn="edit" onclick='rowEditor.save()' style="display:none"><i class="fa fa-check" aria-hidden="true"></i></button>
+                            <button class="crud-btn crud-btn--delete" data-crud-btn="action" onclick='rowEditor.delete("tr_${i}")'> <i class="fa fa-trash-o" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>`
+            ));
+
+            $('#tracks-total').text(`${data.paging.TotalItems} total`);
+
+            $('.open-modal').magnificPopup({
+                fixedContentPos: true,
+                fixedBgPos: true,
+                overflowY: 'auto',
+                type: 'inline',
+                preloader: false,
+                focus: '#username',
+                modal: false,
+                removalDelay: 300,
+                mainClass: 'my-mfp-zoom-in',
+            });
+
+            $('.modal__btn--dismiss').on('click', function (e) {
+                e.preventDefault();
+                $.magnificPopup.close();
+            });
+
+            $('[data-toggle="tooltip"]').tooltip();
+
+            rowEditor.init(document.querySelector('.info_message_container span'));
+
+            // Paging
+            pager.build(data.paging);
+        }
+    };
+
+    $(document).ready(function () {
+        sorting.init();
+        filtering.init();
+
+        pager = new SiteHelper.Paging.Create(
+            document.querySelector('.paginator .paginator__pages'),
+            document.querySelector('.paginator .paginator__paginator'),
+            5,
+            data.get,
+            { type: "", sortProp: '', filter: '', PageIndex: 0, ItemsPerPage: 8 }
+        );
+
+        data.get();
+    });
+</script>
+
+
+
+<body>
+    <!-- main content -->
+    <main class="main">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- main title -->
+                <div class="col-12 main__title_sticky_container">
+                    <div class="main__title">
+
+                        <a href="~/Admin/Track/Add" style="margin-right:5px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#2f80ed" class="bi bi-plus-square" viewBox="0 0 16 16">
+                                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                            </svg>
+                        </a>
+
+                        <h2>Tracks</h2>
+
+                        <span class="main__title-stat" id="tracks-total">&nbsp;</span>
+
+                        <div class="main__title-wrap">
+                            <!-- filter sort -->
+                            <div class="filter" id="filter__sort">
+                                <span class="filter__item-label">Sort by:</span>
+
+                                <div class="filter__item-btn dropdown-toggle" role="navigation" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <div id="sort-label"></div>
+                                    <span></span>
+                                </div>
+
+                                <ul id="sort-cont" class="filter__item-menu dropdown-menu scrollbar-dropdown"></ul>
+                            </div>
+                            <!-- end filter sort -->
+                            <!-- search -->
+                            <form action="#" class="main__title-form">
+                                <input id="filter-input" type="text" placeholder="Find tracks...">
+                                <div>
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </div>
+                            </form>
+                            <!-- end search -->
+                        </div>
+                    </div>
+
+                    <div class="info_message_container">
+                        <span>&nbsp;</span>
+                    </div>
+                </div>
+                <!-- end main title -->
+                <!-- users -->
+                <div class="col-12">
+                    <div class="main__table-wrap">
+                        <table class="main__table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>TITLE</th>
+                                    <th>DURATION</th>
+                                    <th>ALBUM</th>
+                                    <th>ARTISTS</th>
+                                    <th>GENRE</th>
+                                    <th>POPULARITY</th>
+                                    <th>ACTIONS</th>
+                                </tr>
+                            </thead>
+                            <tbody id="load-tracks">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- end users -->
+                <!-- paginator -->
+                <div class="col-12">
+                    <div class="paginator">
+                        <span class="paginator__pages">&nbsp;</span>
+
+                        <ul class="paginator__paginator">
+                            <li>
+                                <a href="#">
+                                    <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.75 5.36475L13.1992 5.36475" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M5.771 10.1271L0.749878 5.36496L5.771 0.602051" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                                </a>
+                            </li>
+                            <li class="active"><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li>
+                                <a href="#">
+                                    <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.1992 5.3645L0.75 5.3645" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.17822 0.602051L13.1993 5.36417L8.17822 10.1271" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- end paginator -->
+            </div>
+        </div>
+    </main>
+    <!-- end main content -->
+</body>
+

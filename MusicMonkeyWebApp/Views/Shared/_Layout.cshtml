@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="DJoz Template">
+    <meta name="keywords" content="DJoz, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>@ViewBag.Title</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Js Header -->
+    @Scripts.Render("~/bundles/homeJs_Header")
+
+    <!-- Css Styles -->
+    @Styles.Render("~/bundles/homeCss")
+
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    @{ Html.RenderAction("Header", "Home"); }
+    <div>
+        @RenderBody()
+    </div>
+    @{ Html.RenderAction("Footer", "Home"); }
+
+
+    <!-- Js Body -->
+    @Scripts.Render("~/bundles/homeJs_BodyEnd")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

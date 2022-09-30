@@ -1,0 +1,1066 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.TypeScript.MSBuild.4.7.4\build\Microsoft.TypeScript.MSBuild.props" Condition="Exists('..\packages\Microsoft.TypeScript.MSBuild.4.7.4\build\Microsoft.TypeScript.MSBuild.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CCA5706C-E5C9-46E1-B4D0-B0894BE95B2F}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MusicMonkeyWebApp</RootNamespace>
+    <AssemblyName>MusicMonkeyWebApp</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44314</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="KirisMvcHelper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libraries\KirisMvcHelper.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.2.2\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.2.2\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Extensions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Extensions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Features, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Features.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Features.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileProviders.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.FileProviders.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.FileProviders.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Options.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Net.Http.Headers, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.Headers.2.2.0\lib\netstandard2.0\Microsoft.Net.Http.Headers.dll</HintPath>
+    </Reference>
+    <Reference Include="PayPal, Version=1.9.1.0, Culture=neutral, PublicKeyToken=5b4afc1ccaef40fb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PayPal.1.9.1\lib\net451\PayPal.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.5.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Memory, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.1\lib\netstandard2.0\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.1\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.4.5.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Cors, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.9\lib\net45\System.Web.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.7\lib\net45\System.Web.Http.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.3\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.3\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.4.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.4.0.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.4.0.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.4.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.4.0.1\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\UsersConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="App_Start\WebSetsConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AlbumController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ArtistController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TrackController.cs" />
+    <Compile Include="Areas\Public\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Public\PublicAreaRegistration.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ApiControllers\AlbumApiController.cs" />
+    <Compile Include="Controllers\ApiControllers\ArtistApiController.cs" />
+    <Compile Include="Controllers\ApiControllers\BaseApiController.cs" />
+    <Compile Include="Controllers\ApiControllers\GenreApiController.cs" />
+    <Compile Include="Controllers\ApiControllers\TrackApiController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\MvcHelpers.cs" />
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="ChatHub.cs" />
+    <Compile Include="PaypalConfiguration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Assets_Admin\404.html" />
+    <Content Include="Areas\Admin\Assets_Admin\add-item.html" />
+    <Content Include="Areas\Admin\Assets_Admin\catalog.html" />
+    <Content Include="Areas\Admin\Assets_Admin\comments.html" />
+    <Content Include="Areas\Admin\Assets_Admin\css\admin.css" />
+    <Content Include="Areas\Admin\Assets_Admin\css\adminKiriakos.css" />
+    <Content Include="Areas\Admin\Assets_Admin\css\bootstrap-grid.min.css" />
+    <Content Include="Areas\Admin\Assets_Admin\css\bootstrap-reboot.min.css" />
+    <Content Include="Areas\Admin\Assets_Admin\css\magnific-popup.css" />
+    <Content Include="Areas\Admin\Assets_Admin\css\select2.min.css" />
+    <Content Include="Areas\Admin\Assets_Admin\edit-user.html" />
+    <Content Include="Areas\Admin\Assets_Admin\forgot.html" />
+    <Content Include="Areas\Admin\Assets_Admin\icon\favicon-32x32.png" />
+    <Content Include="Areas\Admin\Assets_Admin\img\bg.jpg" />
+    <Content Include="Areas\Admin\Assets_Admin\img\checkmark.svg" />
+    <Content Include="Areas\Admin\Assets_Admin\img\img.svg" />
+    <Content Include="Areas\Admin\Assets_Admin\img\logo.svg" />
+    <Content Include="Areas\Admin\Assets_Admin\img\user.svg" />
+    <Content Include="Areas\Admin\Assets_Admin\img\video.svg" />
+    <Content Include="Areas\Admin\Assets_Admin\index.html" />
+    <Content Include="Areas\Admin\Assets_Admin\js\admin.js" />
+    <Content Include="Areas\Admin\Assets_Admin\js\bootstrap.bundle.min.js" />
+    <Content Include="Areas\Admin\Assets_Admin\js\jquery-3.5.1.min.js" />
+    <Content Include="Areas\Admin\Assets_Admin\js\jquery.magnific-popup.min.js" />
+    <Content Include="Areas\Admin\Assets_Admin\js\select2.min.js" />
+    <Content Include="Areas\Admin\Assets_Admin\js\smooth-scrollbar.js" />
+    <Content Include="Areas\Admin\Assets_Admin\reviews.html" />
+    <Content Include="Areas\Admin\Assets_Admin\signin.html" />
+    <Content Include="Areas\Admin\Assets_Admin\signup.html" />
+    <Content Include="Areas\Admin\Assets_Admin\users.html" />
+    <Content Include="Areas\Public\Assets\about.html" />
+    <Content Include="Areas\Public\Assets\blog-details.html" />
+    <Content Include="Areas\Public\Assets\blog.html" />
+    <Content Include="Areas\Public\Assets\contact.html" />
+    <Content Include="Areas\Public\Assets\css\barfiller.css" />
+    <Content Include="Areas\Public\Assets\css\bootstrap.min.css" />
+    <Content Include="Areas\Public\Assets\css\font-awesome.min.css" />
+    <Content Include="Areas\Public\Assets\css\magnific-popup.css" />
+    <Content Include="Areas\Public\Assets\css\nowfont.css" />
+    <Content Include="Areas\Public\Assets\css\owl.carousel.min.css" />
+    <Content Include="Areas\Public\Assets\css\rockville.css" />
+    <Content Include="Areas\Public\Assets\css\slicknav.min.css" />
+    <Content Include="Areas\Public\Assets\css\style.css" />
+    <Content Include="Areas\Public\Assets\discography.html" />
+    <Content Include="Areas\Public\Assets\fonts\fontawesome-webfont.svg" />
+    <Content Include="Areas\Public\Assets\img\about\about.png" />
+    <Content Include="Areas\Public\Assets\img\about\ap-1.jpg" />
+    <Content Include="Areas\Public\Assets\img\about\ap-2.jpg" />
+    <Content Include="Areas\Public\Assets\img\about\ap-3.jpg" />
+    <Content Include="Areas\Public\Assets\img\about\ap-4.jpg" />
+    <Content Include="Areas\Public\Assets\img\about\ap-5.jpg" />
+    <Content Include="Areas\Public\Assets\img\about\ap-6.jpg" />
+    <Content Include="Areas\Public\Assets\img\about\ap-7.jpg" />
+    <Content Include="Areas\Public\Assets\img\about\signature.png" />
+    <Content Include="Areas\Public\Assets\img\Background.jpg" />
+    <Content Include="Areas\Public\Assets\img\blog\blog-1.jpg" />
+    <Content Include="Areas\Public\Assets\img\blog\blog-2.jpg" />
+    <Content Include="Areas\Public\Assets\img\blog\blog-3.jpg" />
+    <Content Include="Areas\Public\Assets\img\blog\blog-4.jpg" />
+    <Content Include="Areas\Public\Assets\img\blog\blog-5.jpg" />
+    <Content Include="Areas\Public\Assets\img\blog\blog-6.jpg" />
+    <Content Include="Areas\Public\Assets\img\blog\br-1.jpg" />
+    <Content Include="Areas\Public\Assets\img\blog\br-2.jpg" />
+    <Content Include="Areas\Public\Assets\img\blog\br-3.jpg" />
+    <Content Include="Areas\Public\Assets\img\blog\br-4.jpg" />
+    <Content Include="Areas\Public\Assets\img\blog\details\blog-change.jpg" />
+    <Content Include="Areas\Public\Assets\img\blog\details\bs-1.jpg" />
+    <Content Include="Areas\Public\Assets\img\blog\details\bs-2.jpg" />
+    <Content Include="Areas\Public\Assets\img\blog\details\bs-3.jpg" />
+    <Content Include="Areas\Public\Assets\img\blog\details\details-pic.jpg" />
+    <Content Include="Areas\Public\Assets\img\blog\large-item.jpg" />
+    <Content Include="Areas\Public\Assets\img\countdown-bg.jpg" />
+    <Content Include="Areas\Public\Assets\img\discography\disco-1.jpg" />
+    <Content Include="Areas\Public\Assets\img\discography\disco-2.jpg" />
+    <Content Include="Areas\Public\Assets\img\discography\disco-3.jpg" />
+    <Content Include="Areas\Public\Assets\img\discography\disco-4.jpg" />
+    <Content Include="Areas\Public\Assets\img\discography\disco-5.jpg" />
+    <Content Include="Areas\Public\Assets\img\discography\disco-6.jpg" />
+    <Content Include="Areas\Public\Assets\img\discography\link-1.jpg" />
+    <Content Include="Areas\Public\Assets\img\discography\link-2.jpg" />
+    <Content Include="Areas\Public\Assets\img\events\event-1.jpg" />
+    <Content Include="Areas\Public\Assets\img\events\event-2.jpg" />
+    <Content Include="Areas\Public\Assets\img\events\event-3.jpg" />
+    <Content Include="Areas\Public\Assets\img\footer-bg.png" />
+    <Content Include="Areas\Public\Assets\img\hero-bg.png" />
+    <Content Include="Areas\Public\Assets\img\logo.png" />
+    <Content Include="Areas\Public\Assets\img\pause.png" />
+    <Content Include="Areas\Public\Assets\img\play-default.png" />
+    <Content Include="Areas\Public\Assets\img\play.png" />
+    <Content Include="Areas\Public\Assets\img\services\as-1.jpg" />
+    <Content Include="Areas\Public\Assets\img\services\as-2.jpg" />
+    <Content Include="Areas\Public\Assets\img\services\as-3.jpg" />
+    <Content Include="Areas\Public\Assets\img\services\as-icon-1.png" />
+    <Content Include="Areas\Public\Assets\img\services\as-icon-2.png" />
+    <Content Include="Areas\Public\Assets\img\services\as-icon-3.png" />
+    <Content Include="Areas\Public\Assets\img\services\service-1.png" />
+    <Content Include="Areas\Public\Assets\img\services\service-2.png" />
+    <Content Include="Areas\Public\Assets\img\services\service-3.png" />
+    <Content Include="Areas\Public\Assets\img\services\service-4.png" />
+    <Content Include="Areas\Public\Assets\img\services\service-left.jpg" />
+    <Content Include="Areas\Public\Assets\img\skill-video.jpg" />
+    <Content Include="Areas\Public\Assets\img\tours\tour-1.jpg" />
+    <Content Include="Areas\Public\Assets\img\tours\tour-2.jpg" />
+    <Content Include="Areas\Public\Assets\img\tours\tour-3.jpg" />
+    <Content Include="Areas\Public\Assets\img\track-right.jpg" />
+    <Content Include="Areas\Public\Assets\img\videos\large-item.jpg" />
+    <Content Include="Areas\Public\Assets\img\videos\videos-1.jpg" />
+    <Content Include="Areas\Public\Assets\img\videos\videos-2.jpg" />
+    <Content Include="Areas\Public\Assets\img\videos\videos-3.jpg" />
+    <Content Include="Areas\Public\Assets\img\videos\videos-4.jpg" />
+    <Content Include="Areas\Public\Assets\img\volume.png" />
+    <Content Include="Areas\Public\Assets\img\youtube\youtube-1.jpg" />
+    <Content Include="Areas\Public\Assets\img\youtube\youtube-2.jpg" />
+    <Content Include="Areas\Public\Assets\img\youtube\youtube-3.jpg" />
+    <Content Include="Areas\Public\Assets\index.html" />
+    <Content Include="Areas\Public\Assets\js\bootstrap.min.js" />
+    <Content Include="Areas\Public\Assets\js\jplayerInit.js" />
+    <Content Include="Areas\Public\Assets\js\jquery-3.3.1.min.js" />
+    <Content Include="Areas\Public\Assets\js\jquery.barfiller.js" />
+    <Content Include="Areas\Public\Assets\js\jquery.countdown.min.js" />
+    <Content Include="Areas\Public\Assets\js\jquery.jplayer.min.js" />
+    <Content Include="Areas\Public\Assets\js\jquery.magnific-popup.min.js" />
+    <Content Include="Areas\Public\Assets\js\jquery.nicescroll.min.js" />
+    <Content Include="Areas\Public\Assets\js\jquery.slicknav.js" />
+    <Content Include="Areas\Public\Assets\js\main.js" />
+    <Content Include="Areas\Public\Assets\js\owl.carousel.min.js" />
+    <Content Include="Areas\Public\Assets\main.html" />
+    <Content Include="Areas\Public\Assets\music-files\1.mp3" />
+    <Content Include="Areas\Public\Assets\music-files\2.mp3" />
+    <Content Include="Areas\Public\Assets\music-files\3.mp3" />
+    <Content Include="Areas\Public\Assets\music-files\4.mp3" />
+    <Content Include="Areas\Public\Assets\music-files\5.mp3" />
+    <Content Include="Areas\Public\Assets\music-files\6.mp3" />
+    <Content Include="Areas\Public\Assets\readme.txt" />
+    <Content Include="Areas\Public\Assets\Source\photo credits.txt" />
+    <Content Include="Areas\Public\Assets\tours.html" />
+    <Content Include="Areas\Public\Assets\videos.html" />
+    <Content Include="Content\Assets\entity-files\Above and Beyond\Above&amp;BeyondPhotoUrl.jpg" />
+    <Content Include="Content\Assets\entity-files\Above and Beyond\Sirens of the Sea\SirenOfTheSeeCoverPhotoUrl.jpg" />
+    <Content Include="Content\Assets\entity-files\ACDC\artist_cover.jpg" />
+    <Content Include="Content\Assets\entity-files\ACDC\BackInBlack\1_GivinTheDogABone.mp3" />
+    <Content Include="Content\Assets\entity-files\ACDC\BackInBlack\2_YouShoockMeAllNightLong.mp3" />
+    <Content Include="Content\Assets\entity-files\ACDC\BackInBlack\3_ShootToThrill.mp3" />
+    <Content Include="Content\Assets\entity-files\ACDC\BackInBlack\4_LetMePutMyLoveIntoYou.mp3" />
+    <Content Include="Content\Assets\entity-files\ACDC\BackInBlack\5_HellsBells.mp3" />
+    <Content Include="Content\Assets\entity-files\ACDC\BackInBlack\6_BackInBlack.mp3" />
+    <Content Include="Content\Assets\entity-files\ACDC\BackInBlack\album_cover.jpg" />
+    <Content Include="Content\Assets\entity-files\ACDC\DirtyDeedsDoneDirtCheap\1_BigBalls.mp3" />
+    <Content Include="Content\Assets\entity-files\ACDC\DirtyDeedsDoneDirtCheap\2_DirtyDeedsDoneDirtCheap.mp3" />
+    <Content Include="Content\Assets\entity-files\ACDC\DirtyDeedsDoneDirtCheap\3_RideOn.mp3" />
+    <Content Include="Content\Assets\entity-files\ACDC\DirtyDeedsDoneDirtCheap\4_Rocker.mp3" />
+    <Content Include="Content\Assets\entity-files\ACDC\DirtyDeedsDoneDirtCheap\5_ProblemChild.mp3" />
+    <Content Include="Content\Assets\entity-files\ACDC\DirtyDeedsDoneDirtCheap\6_LoveAtFirstFeel.mp3" />
+    <Content Include="Content\Assets\entity-files\ACDC\DirtyDeedsDoneDirtCheap\album_cover.jpg" />
+    <Content Include="Content\Assets\entity-files\ACDC\HighwayToHell\1_GotItHot.mp3" />
+    <Content Include="Content\Assets\entity-files\ACDC\HighwayToHell\2_HighwayToHell.mp3" />
+    <Content Include="Content\Assets\entity-files\ACDC\HighwayToHell\3_IfYouWantBlood.mp3" />
+    <Content Include="Content\Assets\entity-files\ACDC\HighwayToHell\4_LoveHungryMan.mp3" />
+    <Content Include="Content\Assets\entity-files\ACDC\HighwayToHell\5_NightProwler.mp3" />
+    <Content Include="Content\Assets\entity-files\ACDC\HighwayToHell\6_ToucTooMuch.mp3" />
+    <Content Include="Content\Assets\entity-files\ACDC\HighwayToHell\album_cover.jpg" />
+    <Content Include="Content\Assets\entity-files\Axel Willner\AxelWillnerPhotoUrl.jpg" />
+    <Content Include="Content\Assets\entity-files\Axel Willner\Cupid%27s Head\Cupids_HeadCoverPhotoUrl.jpg" />
+    <Content Include="Content\Assets\entity-files\CreedenceClearwaterRevival\artist_cover.jpg" />
+    <Content Include="Content\Assets\entity-files\CreedenceClearwaterRevival\CosmosFactory\1_UpAroundTheBend.mp3" />
+    <Content Include="Content\Assets\entity-files\CreedenceClearwaterRevival\CosmosFactory\2_LookingOutMyBackdoor.mp3" />
+    <Content Include="Content\Assets\entity-files\CreedenceClearwaterRevival\CosmosFactory\3_OobyDooby.mp3" />
+    <Content Include="Content\Assets\entity-files\CreedenceClearwaterRevival\CosmosFactory\4_RambleTamble.mp3" />
+    <Content Include="Content\Assets\entity-files\CreedenceClearwaterRevival\CosmosFactory\5_TravellinBand.mp3" />
+    <Content Include="Content\Assets\entity-files\CreedenceClearwaterRevival\CosmosFactory\6_BeforeYouAccuseMe.mp3" />
+    <Content Include="Content\Assets\entity-files\CreedenceClearwaterRevival\CosmosFactory\album_cover.jpg" />
+    <Content Include="Content\Assets\entity-files\CreedenceClearwaterRevival\MardiGras\1_SomedayNeverComes.mp3" />
+    <Content Include="Content\Assets\entity-files\CreedenceClearwaterRevival\MardiGras\2_HelloMaryLou.mp3" />
+    <Content Include="Content\Assets\entity-files\CreedenceClearwaterRevival\MardiGras\3_LookinForAReason.mp3" />
+    <Content Include="Content\Assets\entity-files\CreedenceClearwaterRevival\MardiGras\4_NeedSomeoneToHold.mp3" />
+    <Content Include="Content\Assets\entity-files\CreedenceClearwaterRevival\MardiGras\5_SailAway.mp3" />
+    <Content Include="Content\Assets\entity-files\CreedenceClearwaterRevival\MardiGras\6_TakeItLikeAFriend.mp3" />
+    <Content Include="Content\Assets\entity-files\CreedenceClearwaterRevival\MardiGras\album_cover.jpg" />
+    <Content Include="Content\Assets\entity-files\CreedenceClearwaterRevival\Pendulum\1_HaveYouEverSeenTheRain.mp3" />
+    <Content Include="Content\Assets\entity-files\CreedenceClearwaterRevival\Pendulum\2_BornToMove.mp3" />
+    <Content Include="Content\Assets\entity-files\CreedenceClearwaterRevival\Pendulum\3_Chameleon.mp3" />
+    <Content Include="Content\Assets\entity-files\CreedenceClearwaterRevival\Pendulum\4_PaganBaby.mp3" />
+    <Content Include="Content\Assets\entity-files\CreedenceClearwaterRevival\Pendulum\5_SailorsLament.mp3" />
+    <Content Include="Content\Assets\entity-files\CreedenceClearwaterRevival\Pendulum\6_HeyTonight.mp3" />
+    <Content Include="Content\Assets\entity-files\CreedenceClearwaterRevival\Pendulum\album_cover.jpg" />
+    <Content Include="Content\Assets\entity-files\D%27 Angelo\Brown Sugar\BrownSugarCoverPhotoUrl.jpg" />
+    <Content Include="Content\Assets\entity-files\D%27 Angelo\DANGELOPhotoUrl.jpg" />
+    <Content Include="Content\Assets\entity-files\DamianMarley\artist_cover.jpg" />
+    <Content Include="Content\Assets\entity-files\DamianMarley\HalfWayTree\1_MoreJustice.mp3" />
+    <Content Include="Content\Assets\entity-files\DamianMarley\HalfWayTree\2_StillSearching.mp3" />
+    <Content Include="Content\Assets\entity-files\DamianMarley\HalfWayTree\3_EduatedFools.mp3" />
+    <Content Include="Content\Assets\entity-files\DamianMarley\HalfWayTree\4_ItWasWritten.mp3" />
+    <Content Include="Content\Assets\entity-files\DamianMarley\HalfWayTree\5_MiBlenda.mp3" />
+    <Content Include="Content\Assets\entity-files\DamianMarley\HalfWayTree\6_CatchAFire.mp3" />
+    <Content Include="Content\Assets\entity-files\DamianMarley\HalfWayTree\album_cover.jpg" />
+    <Content Include="Content\Assets\entity-files\DamianMarley\MrMarley\1_PartyTime.mp3" />
+    <Content Include="Content\Assets\entity-files\DamianMarley\MrMarley\2_KeepOnGrooving.mp3" />
+    <Content Include="Content\Assets\entity-files\DamianMarley\MrMarley\3_Kingston12.mp3" />
+    <Content Include="Content\Assets\entity-files\DamianMarley\MrMarley\4_Trouble.mp3" />
+    <Content Include="Content\Assets\entity-files\DamianMarley\MrMarley\5_OldWarChant.mp3" />
+    <Content Include="Content\Assets\entity-files\DamianMarley\MrMarley\6_LoveAndUnity.mp3" />
+    <Content Include="Content\Assets\entity-files\DamianMarley\MrMarley\album_cover.jpg" />
+    <Content Include="Content\Assets\entity-files\DamianMarley\WelcomeToJamRock\1_WelcomeToJamrock.mp3" />
+    <Content Include="Content\Assets\entity-files\DamianMarley\WelcomeToJamRock\2_Beautiful.mp3" />
+    <Content Include="Content\Assets\entity-files\DamianMarley\WelcomeToJamRock\3_ThereForYou.mp3" />
+    <Content Include="Content\Assets\entity-files\DamianMarley\WelcomeToJamRock\4_PimpasParadise.mp3" />
+    <Content Include="Content\Assets\entity-files\DamianMarley\WelcomeToJamRock\5_Confrontation.mp3" />
+    <Content Include="Content\Assets\entity-files\DamianMarley\WelcomeToJamRock\6_AllNight.mp3" />
+    <Content Include="Content\Assets\entity-files\DamianMarley\WelcomeToJamRock\album_cover.jpg" />
+    <Content Include="Content\Assets\entity-files\Eminem\EminemPhotoUrl.jpg" />
+    <Content Include="Content\Assets\entity-files\Eminem\The Eminem Show\The_Eminem_ShowCoverPhotoUrl.jpg" />
+    <Content Include="Content\Assets\entity-files\Future\FuturePhotoUrl.jpg" />
+    <Content Include="Content\Assets\entity-files\Future\High Off Life\High_Off_LifeCoverPhotoUrl.jpg" />
+    <Content Include="Content\Assets\entity-files\Ice Cube\Ice-CubePhotoUrl.jpg" />
+    <Content Include="Content\Assets\entity-files\Ice Cube\The Predator\The_Predator_CoverPhotoUrl.jpg" />
+    <Content Include="Content\Assets\entity-files\Marvin Gaye\Marvin_GayePhotoUrl.jpg" />
+    <Content Include="Content\Assets\entity-files\Marvin Gaye\What%27s Going on\WhatsGoingOnCoverPhotoUrl.jpg" />
+    <Content Include="Content\Assets\entity-files\Michael Jackson\Michael_JacksonPhotoUrl.jpg" />
+    <Content Include="Content\Assets\entity-files\Michael Jackson\Thriller\Michael_Jackson_-_ThrillerCoverPhotoUrl.jpg" />
+    <Content Include="Content\Assets\entity-files\Migos\Culture II\Culture_IICoverPhotoUrl.jpg" />
+    <Content Include="Content\Assets\entity-files\Migos\MigosPhotoUrl.jpg" />
+    <Content Include="Content\Assets\entity-files\Migos\No Label II\Migos_No_Label_2CoverPhotoUrl.jpg" />
+    <Content Include="Content\Assets\entity-files\Nirvana\artist_cover.jpg" />
+    <Content Include="Content\Assets\entity-files\Nirvana\Nevermind\1.mp3" />
+    <Content Include="Content\Assets\entity-files\Nirvana\Nevermind\10.mp3" />
+    <Content Include="Content\Assets\entity-files\Nirvana\Nevermind\11.mp3" />
+    <Content Include="Content\Assets\entity-files\Nirvana\Nevermind\12.mp3" />
+    <Content Include="Content\Assets\entity-files\Nirvana\Nevermind\2.mp3" />
+    <Content Include="Content\Assets\entity-files\Nirvana\Nevermind\3.mp3" />
+    <Content Include="Content\Assets\entity-files\Nirvana\Nevermind\4.mp3" />
+    <Content Include="Content\Assets\entity-files\Nirvana\Nevermind\5.mp3" />
+    <Content Include="Content\Assets\entity-files\Nirvana\Nevermind\6.mp3" />
+    <Content Include="Content\Assets\entity-files\Nirvana\Nevermind\7.mp3" />
+    <Content Include="Content\Assets\entity-files\Nirvana\Nevermind\8.mp3" />
+    <Content Include="Content\Assets\entity-files\Nirvana\Nevermind\9.mp3" />
+    <Content Include="Content\Assets\entity-files\Nirvana\Nevermind\album_cover.jpg" />
+    <Content Include="Content\Assets\entity-files\Prodigy\artist_cover.jpg" />
+    <Content Include="Content\Assets\entity-files\Prodigy\Music_for_the_Jilted_Generation\1.mp3" />
+    <Content Include="Content\Assets\entity-files\Prodigy\Music_for_the_Jilted_Generation\10.mp3" />
+    <Content Include="Content\Assets\entity-files\Prodigy\Music_for_the_Jilted_Generation\11.mp3" />
+    <Content Include="Content\Assets\entity-files\Prodigy\Music_for_the_Jilted_Generation\12.mp3" />
+    <Content Include="Content\Assets\entity-files\Prodigy\Music_for_the_Jilted_Generation\13.mp3" />
+    <Content Include="Content\Assets\entity-files\Prodigy\Music_for_the_Jilted_Generation\2.mp3" />
+    <Content Include="Content\Assets\entity-files\Prodigy\Music_for_the_Jilted_Generation\3.mp3" />
+    <Content Include="Content\Assets\entity-files\Prodigy\Music_for_the_Jilted_Generation\4.mp3" />
+    <Content Include="Content\Assets\entity-files\Prodigy\Music_for_the_Jilted_Generation\5.mp3" />
+    <Content Include="Content\Assets\entity-files\Prodigy\Music_for_the_Jilted_Generation\6.mp3" />
+    <Content Include="Content\Assets\entity-files\Prodigy\Music_for_the_Jilted_Generation\7.mp3" />
+    <Content Include="Content\Assets\entity-files\Prodigy\Music_for_the_Jilted_Generation\8.mp3" />
+    <Content Include="Content\Assets\entity-files\Prodigy\Music_for_the_Jilted_Generation\9.mp3" />
+    <Content Include="Content\Assets\entity-files\Prodigy\Music_for_the_Jilted_Generation\cover.jpg" />
+    <Content Include="Content\Assets\entity-files\Prodigy\The_Added_Fat_EP\1.mp3" />
+    <Content Include="Content\Assets\entity-files\Prodigy\The_Added_Fat_EP\2.mp3" />
+    <Content Include="Content\Assets\entity-files\Prodigy\The_Added_Fat_EP\3.mp3" />
+    <Content Include="Content\Assets\entity-files\Prodigy\The_Added_Fat_EP\4.mp3" />
+    <Content Include="Content\Assets\entity-files\Prodigy\The_Added_Fat_EP\5.mp3" />
+    <Content Include="Content\Assets\entity-files\Prodigy\The_Added_Fat_EP\6.mp3" />
+    <Content Include="Content\Assets\entity-files\Prodigy\The_Added_Fat_EP\cover.jpg" />
+    <Content Include="Content\Assets\entity-files\Prodigy\The_Fat_of_the_Land\1.mp3" />
+    <Content Include="Content\Assets\entity-files\Prodigy\The_Fat_of_the_Land\10.mp3" />
+    <Content Include="Content\Assets\entity-files\Prodigy\The_Fat_of_the_Land\2.mp3" />
+    <Content Include="Content\Assets\entity-files\Prodigy\The_Fat_of_the_Land\3.mp3" />
+    <Content Include="Content\Assets\entity-files\Prodigy\The_Fat_of_the_Land\4.mp3" />
+    <Content Include="Content\Assets\entity-files\Prodigy\The_Fat_of_the_Land\5.mp3" />
+    <Content Include="Content\Assets\entity-files\Prodigy\The_Fat_of_the_Land\6.mp3" />
+    <Content Include="Content\Assets\entity-files\Prodigy\The_Fat_of_the_Land\7.mp3" />
+    <Content Include="Content\Assets\entity-files\Prodigy\The_Fat_of_the_Land\8.mp3" />
+    <Content Include="Content\Assets\entity-files\Prodigy\The_Fat_of_the_Land\9.mp3" />
+    <Content Include="Content\Assets\entity-files\Prodigy\The_Fat_of_the_Land\album_cover.jpg" />
+    <Content Include="Content\Assets\entity-files\The Notorious B.I.G\Ready to Die\Ready_To_DieCoverPhotoUrl.jpg" />
+    <Content Include="Content\Assets\entity-files\The Notorious B.I.G\Ready to Die\The_Notorious_B.I.G.-Juicy_%28128kbps%29.mp3" />
+    <Content Include="Content\Assets\entity-files\The Notorious B.I.G\Ready to Die\The_Notorious_B.I.G._-_Big_Poppa_%28128kbps%29.mp3" />
+    <Content Include="Content\Assets\entity-files\The Notorious B.I.G\Ready to Die\The_Notorious_B.I.G._-_Everyday_Struggle_%28Official_Audio%29_%28128kbps%29.mp3" />
+    <Content Include="Content\Assets\entity-files\The Notorious B.I.G\Ready to Die\The_Notorious_B.I.G._-_Friend_of_Mine_%28Official_Audio%29_%28128kbps%29.mp3" />
+    <Content Include="Content\Assets\entity-files\The Notorious B.I.G\Ready to Die\The_Notorious_B.I.G._-_Gimme_the_Loot_%28Official_Audio%29_%28128kbps%29.mp3" />
+    <Content Include="Content\Assets\entity-files\The Notorious B.I.G\Ready to Die\The_Notorious_B.I.G._-_Machine_Gun_Funk_%28Official_Audio%29_%28128kbps%29.mp3" />
+    <Content Include="Content\Assets\entity-files\The Notorious B.I.G\Ready to Die\The_Notorious_B.I.G._-_Me_&amp;_My_Bitch_%28Official_Audio%29_%28128kbps%29.mp3" />
+    <Content Include="Content\Assets\entity-files\The Notorious B.I.G\Ready to Die\The_Notorious_B.I.G._-_Ready_to_Die_%28Official_Audio%29_%28128kbps%29.mp3" />
+    <Content Include="Content\Assets\entity-files\The Notorious B.I.G\Ready to Die\The_Notorious_B.I.G._-_Respect_%28Official_Audio%29_%28128kbps%29.mp3" />
+    <Content Include="Content\Assets\entity-files\The Notorious B.I.G\Ready to Die\The_Notorious_B.I.G._-_Suicidal_Thoughts_%28Official_Audio%29_%28128kbps%29.mp3" />
+    <Content Include="Content\Assets\entity-files\The Notorious B.I.G\Ready to Die\The_Notorious_B.I.G._-_Things_Done_Changed_%28128kbps%29.mp3" />
+    <Content Include="Content\Assets\entity-files\The Notorious B.I.G\Ready to Die\The_Notorious_B.I.G._-_Unbelievable_%28Official_Audio%29_%28128kbps%29.mp3" />
+    <Content Include="Content\Assets\entity-files\The Notorious B.I.G\The_Notorious_B.I.GPhotoUrl.jpg" />
+    <Content Include="Content\Assets\entity-files\Trypes\cover.jpg" />
+    <Content Include="Content\Assets\entity-files\Trypes\Ennia_Pliromena_Tragoudia\1.mp3" />
+    <Content Include="Content\Assets\entity-files\Trypes\Ennia_Pliromena_Tragoudia\10.mp3" />
+    <Content Include="Content\Assets\entity-files\Trypes\Ennia_Pliromena_Tragoudia\2.mp3" />
+    <Content Include="Content\Assets\entity-files\Trypes\Ennia_Pliromena_Tragoudia\3.mp3" />
+    <Content Include="Content\Assets\entity-files\Trypes\Ennia_Pliromena_Tragoudia\4.mp3" />
+    <Content Include="Content\Assets\entity-files\Trypes\Ennia_Pliromena_Tragoudia\5.mp3" />
+    <Content Include="Content\Assets\entity-files\Trypes\Ennia_Pliromena_Tragoudia\6.mp3" />
+    <Content Include="Content\Assets\entity-files\Trypes\Ennia_Pliromena_Tragoudia\7.mp3" />
+    <Content Include="Content\Assets\entity-files\Trypes\Ennia_Pliromena_Tragoudia\8.mp3" />
+    <Content Include="Content\Assets\entity-files\Trypes\Ennia_Pliromena_Tragoudia\9.mp3" />
+    <Content Include="Content\Assets\entity-files\Trypes\Ennia_Pliromena_Tragoudia\cover.jpg" />
+    <Content Include="Content\Assets\entity-files\Unknown Artist\Unknown Album\Ancient_Greek_Music_%2864kbps%29.mp3" />
+    <Content Include="Content\Assets\entity-files\Unknown Artist\Unknown Album\Chinese_Musical_Instruments_-_Relaxing_Music.mp3" />
+    <Content Include="Content\Assets\entity-files\Unknown Artist\Unknown Album\UnknownCoverPhotoUrl.jpg" />
+    <Content Include="Content\Assets\entity-files\Unknown Artist\Unknown Album\VIKINGS_Most_Epic_Viking_&amp;_Nordic_Folk_Music_Danheim.mp3" />
+    <Content Include="Content\Assets\entity-files\Unknown Artist\UnknownPhotoUrl.jpg" />
+    <Content Include="Content\Assets\img\discography\no-photo.png" />
+    <Content Include="Content\Assets\img\no-photo-2.png" />
+    <Content Include="Content\Assets\img\track-no-image.jpg" />
+    <Content Include="Content\Assets\js\homeInit.js" />
+    <Content Include="Content\Assets\js\SiteHelper.js" />
+    <Content Include="Content\bootstrap-grid.css" />
+    <Content Include="Content\bootstrap-grid.min.css" />
+    <Content Include="Content\bootstrap-reboot.css" />
+    <Content Include="Content\bootstrap-reboot.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\ChatStyle.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Libraries\KirisMvcHelper.dll" />
+    <Content Include="Libraries\Microsoft.Web.Administration.dll" />
+    <Content Include="Libraries\Microsoft.Win32.Registry.dll" />
+    <Content Include="Libraries\System.Diagnostics.DiagnosticSource.dll" />
+    <Content Include="Libraries\System.Reflection.TypeExtensions.dll" />
+    <Content Include="Libraries\System.Security.Principal.Windows.dll" />
+    <Content Include="Libraries\System.ServiceProcess.ServiceController.dll" />
+    <Content Include="Scripts\bootstrap.bundle.js" />
+    <Content Include="Scripts\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\esm\popper-utils.js" />
+    <Content Include="Scripts\esm\popper-utils.min.js" />
+    <Content Include="Scripts\esm\popper.js" />
+    <Content Include="Scripts\esm\popper.min.js" />
+    <Content Include="Scripts\index.js.flow" />
+    <Content Include="Scripts\esm\popper.min.js.map" />
+    <Content Include="Scripts\esm\popper.js.map" />
+    <Content Include="Scripts\esm\popper-utils.min.js.map" />
+    <Content Include="Scripts\esm\popper-utils.js.map" />
+    <Content Include="Scripts\bootstrap.min.js.map" />
+    <Content Include="Scripts\bootstrap.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.js.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.css.map" />
+    <Content Include="Content\bootstrap-grid.min.css.map" />
+    <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Areas\Public\Views\web.config" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Public\Assets\fonts\fontawesome-webfont.eot" />
+    <Content Include="Areas\Public\Assets\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Areas\Public\Assets\fonts\fontawesome-webfont.woff" />
+    <Content Include="Areas\Public\Assets\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Areas\Public\Assets\fonts\FontAwesome.otf" />
+    <Content Include="Areas\Public\Assets\fonts\Now-Black.woff" />
+    <Content Include="Areas\Public\Assets\fonts\Now-Bold.woff" />
+    <Content Include="Areas\Public\Assets\fonts\Now-Light.woff" />
+    <Content Include="Areas\Public\Assets\fonts\Now-Medium.woff" />
+    <Content Include="Areas\Public\Assets\fonts\Now-Regular.woff" />
+    <Content Include="Areas\Public\Assets\fonts\Now-Thin.woff" />
+    <Content Include="Areas\Public\Assets\fonts\Rockville Solid.woff" />
+    <Content Include="Areas\Public\Assets\sass\style.scss" />
+    <Content Include="Areas\Public\Assets\sass\_about.scss" />
+    <Content Include="Areas\Public\Assets\sass\_base.scss" />
+    <Content Include="Areas\Public\Assets\sass\_blog-details.scss" />
+    <Content Include="Areas\Public\Assets\sass\_blog-sidebar.scss" />
+    <Content Include="Areas\Public\Assets\sass\_blog.scss" />
+    <Content Include="Areas\Public\Assets\sass\_breadcrumb.scss" />
+    <Content Include="Areas\Public\Assets\sass\_contact.scss" />
+    <Content Include="Areas\Public\Assets\sass\_discography.scss" />
+    <Content Include="Areas\Public\Assets\sass\_feature.scss" />
+    <Content Include="Areas\Public\Assets\sass\_footer.scss" />
+    <Content Include="Areas\Public\Assets\sass\_header.scss" />
+    <Content Include="Areas\Public\Assets\sass\_hero.scss" />
+    <Content Include="Areas\Public\Assets\sass\_home-page.scss" />
+    <Content Include="Areas\Public\Assets\sass\_mixins.scss" />
+    <Content Include="Areas\Public\Assets\sass\_responsive.scss" />
+    <Content Include="Areas\Public\Assets\sass\_services.scss" />
+    <Content Include="Areas\Public\Assets\sass\_tours.scss" />
+    <Content Include="Areas\Public\Assets\sass\_variable.scss" />
+    <Content Include="Areas\Public\Assets\sass\_videos.scss" />
+    <Content Include="Areas\Public\Assets\Source\barfiller-master.zip" />
+    <Content Include="Areas\Public\Assets\Source\bootstrap-4.2.1-dist.zip" />
+    <Content Include="Areas\Public\Assets\Source\font-awesome-4.7.0.zip" />
+    <Content Include="Areas\Public\Assets\Source\jPlayer-2.9.2.zip" />
+    <Content Include="Areas\Public\Assets\Source\jQuery.countdown-master.zip" />
+    <Content Include="Areas\Public\Assets\Source\jquery.nicescroll-master.zip" />
+    <Content Include="Areas\Public\Assets\Source\Magnific-Popup-master.zip" />
+    <Content Include="Areas\Public\Assets\Source\OwlCarousel2-2.3.4.zip" />
+    <Content Include="Areas\Public\Assets\Source\SlickNav-master.zip" />
+    <Content Include="Areas\Public\Views\Shared\_LayoutHome.cshtml" />
+    <Content Include="Areas\Public\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Layout\_AdminLayout.cshtml" />
+    <Content Include="Areas\Admin\Assets_Admin\css\admin.styl" />
+    <Content Include="Areas\Admin\Assets_Admin\css\bootstrap-grid.min.css.map" />
+    <Content Include="Areas\Admin\Assets_Admin\css\bootstrap-reboot.min.css.map" />
+    <Content Include="Areas\Admin\Assets_Admin\js\bootstrap.bundle.min.js.map" />
+    <Content Include="Areas\Admin\Views\Layout\AdminMetaHead.cshtml" />
+    <Content Include="Areas\Admin\Views\Layout\SideBar.cshtml" />
+    <Content Include="Areas\Admin\Views\Layout\Stats.cshtml" />
+    <Content Include="Areas\Admin\Views\Artist\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Album\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Artist\Add.cshtml" />
+    <Content Include="Areas\Admin\Views\Album\Add.cshtml" />
+    <Content Include="Areas\Admin\Views\Track\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Track\Add.cshtml" />
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.2.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.2.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\popper-utils.js" />
+    <Content Include="Scripts\popper-utils.min.js" />
+    <Content Include="Scripts\popper.js" />
+    <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\src\index.js" />
+    <Content Include="Scripts\src\methods\defaults.js" />
+    <Content Include="Scripts\src\methods\destroy.js" />
+    <Content Include="Scripts\src\methods\disableEventListeners.js" />
+    <Content Include="Scripts\src\methods\enableEventListeners.js" />
+    <Content Include="Scripts\src\methods\placements.js" />
+    <Content Include="Scripts\src\methods\update.js" />
+    <Content Include="Scripts\src\modifiers\applyStyle.js" />
+    <Content Include="Scripts\src\modifiers\arrow.js" />
+    <Content Include="Scripts\src\modifiers\computeStyle.js" />
+    <Content Include="Scripts\src\modifiers\flip.js" />
+    <Content Include="Scripts\src\modifiers\hide.js" />
+    <Content Include="Scripts\src\modifiers\index.js" />
+    <Content Include="Scripts\src\modifiers\inner.js" />
+    <Content Include="Scripts\src\modifiers\keepTogether.js" />
+    <Content Include="Scripts\src\modifiers\offset.js" />
+    <Content Include="Scripts\src\modifiers\preventOverflow.js" />
+    <Content Include="Scripts\src\modifiers\shift.js" />
+    <Content Include="Scripts\src\utils\clockwise.js" />
+    <Content Include="Scripts\src\utils\computeAutoPlacement.js" />
+    <Content Include="Scripts\src\utils\debounce.js" />
+    <Content Include="Scripts\src\utils\find.js" />
+    <Content Include="Scripts\src\utils\findCommonOffsetParent.js" />
+    <Content Include="Scripts\src\utils\findIndex.js" />
+    <Content Include="Scripts\src\utils\getBordersSize.js" />
+    <Content Include="Scripts\src\utils\getBoundaries.js" />
+    <Content Include="Scripts\src\utils\getBoundingClientRect.js" />
+    <Content Include="Scripts\src\utils\getClientRect.js" />
+    <Content Include="Scripts\src\utils\getFixedPositionOffsetParent.js" />
+    <Content Include="Scripts\src\utils\getOffsetParent.js" />
+    <Content Include="Scripts\src\utils\getOffsetRect.js" />
+    <Content Include="Scripts\src\utils\getOffsetRectRelativeToArbitraryNode.js" />
+    <Content Include="Scripts\src\utils\getOppositePlacement.js" />
+    <Content Include="Scripts\src\utils\getOppositeVariation.js" />
+    <Content Include="Scripts\src\utils\getOuterSizes.js" />
+    <Content Include="Scripts\src\utils\getParentNode.js" />
+    <Content Include="Scripts\src\utils\getPopperOffsets.js" />
+    <Content Include="Scripts\src\utils\getReferenceNode.js" />
+    <Content Include="Scripts\src\utils\getReferenceOffsets.js" />
+    <Content Include="Scripts\src\utils\getRoot.js" />
+    <Content Include="Scripts\src\utils\getRoundedOffsets.js" />
+    <Content Include="Scripts\src\utils\getScroll.js" />
+    <Content Include="Scripts\src\utils\getScrollParent.js" />
+    <Content Include="Scripts\src\utils\getStyleComputedProperty.js" />
+    <Content Include="Scripts\src\utils\getSupportedPropertyName.js" />
+    <Content Include="Scripts\src\utils\getViewportOffsetRectRelativeToArtbitraryNode.js" />
+    <Content Include="Scripts\src\utils\getWindow.js" />
+    <Content Include="Scripts\src\utils\getWindowSizes.js" />
+    <Content Include="Scripts\src\utils\includeScroll.js" />
+    <Content Include="Scripts\src\utils\index.js" />
+    <Content Include="Scripts\src\utils\isBrowser.js" />
+    <Content Include="Scripts\src\utils\isFixed.js" />
+    <Content Include="Scripts\src\utils\isFunction.js" />
+    <Content Include="Scripts\src\utils\isIE.js" />
+    <Content Include="Scripts\src\utils\isModifierEnabled.js" />
+    <Content Include="Scripts\src\utils\isModifierRequired.js" />
+    <Content Include="Scripts\src\utils\isNumeric.js" />
+    <Content Include="Scripts\src\utils\isOffsetContainer.js" />
+    <Content Include="Scripts\src\utils\removeEventListeners.js" />
+    <Content Include="Scripts\src\utils\runModifiers.js" />
+    <Content Include="Scripts\src\utils\setAttributes.js" />
+    <Content Include="Scripts\src\utils\setStyles.js" />
+    <Content Include="Scripts\src\utils\setupEventListeners.js" />
+    <Content Include="Content\Assets\js\ChatRoomScript.js" />
+    <Content Include="Scripts\umd\popper-utils.js" />
+    <Content Include="Scripts\umd\popper-utils.min.js" />
+    <Content Include="Scripts\umd\popper.js" />
+    <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Content\Assets\about.html" />
+    <Content Include="Content\Assets\blog-details.html" />
+    <Content Include="Content\Assets\blog.html" />
+    <Content Include="Content\Assets\contact.html" />
+    <Content Include="Content\Assets\css\barfiller.css" />
+    <Content Include="Content\Assets\css\bootstrap.min.css" />
+    <Content Include="Content\Assets\css\font-awesome.min.css" />
+    <Content Include="Content\Assets\css\magnific-popup.css" />
+    <Content Include="Content\Assets\css\nowfont.css" />
+    <Content Include="Content\Assets\css\owl.carousel.min.css" />
+    <Content Include="Content\Assets\css\rockville.css" />
+    <Content Include="Content\Assets\css\slicknav.min.css" />
+    <Content Include="Content\Assets\css\style.css" />
+    <Content Include="Content\Assets\discography.html" />
+    <Content Include="Content\Assets\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\Assets\img\about\about.png" />
+    <Content Include="Content\Assets\img\about\ap-1.jpg" />
+    <Content Include="Content\Assets\img\about\ap-2.jpg" />
+    <Content Include="Content\Assets\img\about\ap-3.jpg" />
+    <Content Include="Content\Assets\img\about\ap-4.jpg" />
+    <Content Include="Content\Assets\img\about\ap-5.jpg" />
+    <Content Include="Content\Assets\img\about\ap-6.jpg" />
+    <Content Include="Content\Assets\img\about\ap-7.jpg" />
+    <Content Include="Content\Assets\img\about\signature.png" />
+    <Content Include="Content\Assets\img\Background.jpg" />
+    <Content Include="Content\Assets\img\blog\blog-1.jpg" />
+    <Content Include="Content\Assets\img\blog\blog-2.jpg" />
+    <Content Include="Content\Assets\img\blog\blog-3.jpg" />
+    <Content Include="Content\Assets\img\blog\blog-4.jpg" />
+    <Content Include="Content\Assets\img\blog\blog-5.jpg" />
+    <Content Include="Content\Assets\img\blog\blog-6.jpg" />
+    <Content Include="Content\Assets\img\blog\br-1.jpg" />
+    <Content Include="Content\Assets\img\blog\br-2.jpg" />
+    <Content Include="Content\Assets\img\blog\br-3.jpg" />
+    <Content Include="Content\Assets\img\blog\br-4.jpg" />
+    <Content Include="Content\Assets\img\blog\details\blog-change.jpg" />
+    <Content Include="Content\Assets\img\blog\details\bs-1.jpg" />
+    <Content Include="Content\Assets\img\blog\details\bs-2.jpg" />
+    <Content Include="Content\Assets\img\blog\details\bs-3.jpg" />
+    <Content Include="Content\Assets\img\blog\details\details-pic.jpg" />
+    <Content Include="Content\Assets\img\blog\large-item.jpg" />
+    <Content Include="Content\Assets\img\countdown-bg.jpg" />
+    <Content Include="Content\Assets\img\discography\disco-1.jpg" />
+    <Content Include="Content\Assets\img\discography\disco-2.jpg" />
+    <Content Include="Content\Assets\img\discography\disco-3.jpg" />
+    <Content Include="Content\Assets\img\discography\disco-4.jpg" />
+    <Content Include="Content\Assets\img\discography\disco-5.jpg" />
+    <Content Include="Content\Assets\img\discography\disco-6.jpg" />
+    <Content Include="Content\Assets\img\discography\link-1.jpg" />
+    <Content Include="Content\Assets\img\discography\link-2.jpg" />
+    <Content Include="Content\Assets\img\events\event-1.jpg" />
+    <Content Include="Content\Assets\img\events\event-2.jpg" />
+    <Content Include="Content\Assets\img\events\event-3.jpg" />
+    <Content Include="Content\Assets\img\footer-bg.png" />
+    <Content Include="Content\Assets\img\hero-bg.png" />
+    <Content Include="Content\Assets\img\logo.png" />
+    <Content Include="Content\Assets\img\pause.png" />
+    <Content Include="Content\Assets\img\play-default.png" />
+    <Content Include="Content\Assets\img\play.png" />
+    <Content Include="Content\Assets\img\services\as-1.jpg" />
+    <Content Include="Content\Assets\img\services\as-2.jpg" />
+    <Content Include="Content\Assets\img\services\as-3.jpg" />
+    <Content Include="Content\Assets\img\services\as-icon-1.png" />
+    <Content Include="Content\Assets\img\services\as-icon-2.png" />
+    <Content Include="Content\Assets\img\services\as-icon-3.png" />
+    <Content Include="Content\Assets\img\services\service-1.png" />
+    <Content Include="Content\Assets\img\services\service-2.png" />
+    <Content Include="Content\Assets\img\services\service-3.png" />
+    <Content Include="Content\Assets\img\services\service-4.png" />
+    <Content Include="Content\Assets\img\services\service-left.jpg" />
+    <Content Include="Content\Assets\img\skill-video.jpg" />
+    <Content Include="Content\Assets\img\tours\tour-1.jpg" />
+    <Content Include="Content\Assets\img\tours\tour-2.jpg" />
+    <Content Include="Content\Assets\img\tours\tour-3.jpg" />
+    <Content Include="Content\Assets\img\track-right.jpg" />
+    <Content Include="Content\Assets\img\videos\large-item.jpg" />
+    <Content Include="Content\Assets\img\videos\videos-1.jpg" />
+    <Content Include="Content\Assets\img\videos\videos-2.jpg" />
+    <Content Include="Content\Assets\img\videos\videos-3.jpg" />
+    <Content Include="Content\Assets\img\videos\videos-4.jpg" />
+    <Content Include="Content\Assets\img\volume.png" />
+    <Content Include="Content\Assets\img\youtube\youtube-1.jpg" />
+    <Content Include="Content\Assets\img\youtube\youtube-2.jpg" />
+    <Content Include="Content\Assets\img\youtube\youtube-3.jpg" />
+    <Content Include="Content\Assets\index.html" />
+    <Content Include="Content\Assets\js\bootstrap.min.js" />
+    <Content Include="Content\Assets\js\jplayerInit.js" />
+    <Content Include="Content\Assets\js\jquery-3.3.1.min.js" />
+    <Content Include="Content\Assets\js\jquery.barfiller.js" />
+    <Content Include="Content\Assets\js\jquery.countdown.min.js" />
+    <Content Include="Content\Assets\js\jquery.jplayer.min.js" />
+    <Content Include="Content\Assets\js\jquery.magnific-popup.min.js" />
+    <Content Include="Content\Assets\js\jquery.nicescroll.min.js" />
+    <Content Include="Content\Assets\js\jquery.slicknav.js" />
+    <Content Include="Content\Assets\js\main.js" />
+    <Content Include="Content\Assets\js\owl.carousel.min.js" />
+    <Content Include="Content\Assets\main.html" />
+    <Content Include="Content\Assets\music-files\1.mp3" />
+    <Content Include="Content\Assets\music-files\2.mp3" />
+    <Content Include="Content\Assets\music-files\3.mp3" />
+    <Content Include="Content\Assets\music-files\4.mp3" />
+    <Content Include="Content\Assets\music-files\5.mp3" />
+    <Content Include="Content\Assets\music-files\6.mp3" />
+    <Content Include="Content\Assets\readme.txt" />
+    <Content Include="Content\Assets\Source\photo credits.txt" />
+    <Content Include="Content\Assets\tester.js" />
+    <Content Include="Content\Assets\tours.html" />
+    <Content Include="Content\Assets\videos.html" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Scripts\umd\popper.min.js.map" />
+    <Content Include="Scripts\umd\popper.js.map" />
+    <Content Include="Scripts\umd\popper.js.flow" />
+    <Content Include="Scripts\umd\popper-utils.min.js.map" />
+    <Content Include="Scripts\umd\popper-utils.js.map" />
+    <Content Include="Scripts\README.md" />
+    <Content Include="Scripts\popper.min.js.map" />
+    <Content Include="Scripts\popper.js.map" />
+    <Content Include="Scripts\popper-utils.min.js.map" />
+    <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Content\Assets\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\Assets\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\Assets\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\Assets\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\Assets\fonts\FontAwesome.otf" />
+    <Content Include="Content\Assets\fonts\Now-Black.woff" />
+    <Content Include="Content\Assets\fonts\Now-Bold.woff" />
+    <Content Include="Content\Assets\fonts\Now-Light.woff" />
+    <Content Include="Content\Assets\fonts\Now-Medium.woff" />
+    <Content Include="Content\Assets\fonts\Now-Regular.woff" />
+    <Content Include="Content\Assets\fonts\Now-Thin.woff" />
+    <Content Include="Content\Assets\fonts\Rockville Solid.woff" />
+    <Content Include="Content\Assets\sass\_about.scss" />
+    <Content Include="Content\Assets\sass\_base.scss" />
+    <Content Include="Content\Assets\sass\_blog-details.scss" />
+    <Content Include="Content\Assets\sass\_blog-sidebar.scss" />
+    <Content Include="Content\Assets\sass\_blog.scss" />
+    <Content Include="Content\Assets\sass\_breadcrumb.scss" />
+    <Content Include="Content\Assets\sass\_contact.scss" />
+    <Content Include="Content\Assets\sass\_discography.scss" />
+    <Content Include="Content\Assets\sass\_feature.scss" />
+    <Content Include="Content\Assets\sass\_footer.scss" />
+    <Content Include="Content\Assets\sass\_header.scss" />
+    <Content Include="Content\Assets\sass\_hero.scss" />
+    <Content Include="Content\Assets\sass\_home-page.scss" />
+    <Content Include="Content\Assets\sass\_mixins.scss" />
+    <Content Include="Content\Assets\sass\_responsive.scss" />
+    <Content Include="Content\Assets\sass\_services.scss" />
+    <Content Include="Content\Assets\sass\_tours.scss" />
+    <Content Include="Content\Assets\sass\_variable.scss" />
+    <Content Include="Content\Assets\sass\_videos.scss" />
+    <Content Include="Content\Assets\sass\style.scss" />
+    <Content Include="Content\Assets\Source\barfiller-master.zip" />
+    <Content Include="Content\Assets\Source\bootstrap-4.2.1-dist.zip" />
+    <Content Include="Content\Assets\Source\font-awesome-4.7.0.zip" />
+    <Content Include="Content\Assets\Source\jPlayer-2.9.2.zip" />
+    <Content Include="Content\Assets\Source\jQuery.countdown-master.zip" />
+    <Content Include="Content\Assets\Source\jquery.nicescroll-master.zip" />
+    <Content Include="Content\Assets\Source\Magnific-Popup-master.zip" />
+    <Content Include="Content\Assets\Source\OwlCarousel2-2.3.4.zip" />
+    <Content Include="Content\Assets\Source\SlickNav-master.zip" />
+    <Content Include="Views\Shared\Master\_Partial_Header.cshtml" />
+    <Content Include="Views\Shared\Home\_Partial_Hero.cshtml" />
+    <Content Include="Views\Shared\Home\_Partial_Event.cshtml" />
+    <Content Include="Views\Shared\Home\_Partial_About.cshtml" />
+    <Content Include="Views\Shared\Home\_Partial_Services.cshtml" />
+    <Content Include="Views\Shared\Home\_Partial_Track.cshtml" />
+    <Content Include="Views\Shared\Home\_Partial_Youtube.cshtml" />
+    <Content Include="Views\Shared\Home\_Partial_Countdown.cshtml" />
+    <Content Include="Views\Shared\Master\_Partial_Footer.cshtml" />
+    <Content Include="Content\Assets\Web.config" />
+    <Content Include="Content\Assets\js\Web.config" />
+    <Content Include="Views\Home\Album.cshtml" />
+    <Content Include="Views\Home\Plans.cshtml" />
+    <Content Include="Views\Home\Tour.cshtml" />
+    <Content Include="Views\Home\Track.cshtml" />
+    <Content Include="Views\Home\Artist.cshtml" />
+    <Content Include="Views\Payment\PaymentWithPaypal.cshtml" />
+    <Content Include="Views\Payment\FailureView.cshtml" />
+    <Content Include="Views\Payment\SuccessView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Views\Contact\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{5fe3265d-5780-4cdc-b516-68067bf19bec}</Project>
+      <Name>DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DesignPatterns\DesignPatterns.csproj">
+      <Project>{3f4e2069-13e4-4ea8-a63e-0c2e69ea0345}</Project>
+      <Name>DesignPatterns</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Entities\Entities.csproj">
+      <Project>{d47d5915-63a3-4be1-9c65-10fce7e41955}</Project>
+      <Name>Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RepositoryService\RepositoryService.csproj">
+      <Project>{1c0201db-71c8-4fa9-bd4b-8a20aff6ac31}</Project>
+      <Name>RepositoryService</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>34858</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44314/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.TypeScript.MSBuild.4.7.4\build\Microsoft.TypeScript.MSBuild.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.TypeScript.MSBuild.4.7.4\build\Microsoft.TypeScript.MSBuild.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.TypeScript.MSBuild.4.7.4\build\Microsoft.TypeScript.MSBuild.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.TypeScript.MSBuild.4.7.4\build\Microsoft.TypeScript.MSBuild.targets'))" />
+  </Target>
+  <Import Project="..\packages\Microsoft.TypeScript.MSBuild.4.7.4\build\Microsoft.TypeScript.MSBuild.targets" Condition="Exists('..\packages\Microsoft.TypeScript.MSBuild.4.7.4\build\Microsoft.TypeScript.MSBuild.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>
